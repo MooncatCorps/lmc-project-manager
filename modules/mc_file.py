@@ -3,7 +3,7 @@ import tomllib as tl
 import sys
 
 def file_path() -> pl.Path:
-    return pl.Path(".lmc.toml")
+    return pl.Path(".mooncat.toml")
 
 def file_exists() -> bool:
     filepath = file_path()

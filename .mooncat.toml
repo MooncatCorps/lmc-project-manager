@@ -1,0 +1,7 @@
+[project]
+name = "pm"
+version = "0.0.1"
+
+[development]
+lang = "python"
+
