@@ -1,21 +1,22 @@
-import mooncat.pm.arguments as cmdargs
-import mooncat.pm.mc_file as mcf
-import mooncat.pm.action_handler as acthandler
+#!/usr/bin/env python
+
+from mooncat.mcpm import arguments
+from mooncat.mcpm import metafile
+from mooncat.mcpm import actions
 
 def main() -> int:
-    if not mcf.file_exists():
-        if mcf.prompt_should_create_file():
-            mcf.create_file()
+    if not metafile.exists():
+        if metafile.prompt_creation():
+            metafile.create()
         else:
-            mcf.report_non_existent_file()
+            metafile.report_non_existent()
             return 1
 
-    parser = cmdargs.register_args()
-    proc_args = parser.parse_args()
+    parser = arguments.register()
+    args = parser.parse_args()
 
-    data = mcf.get_file_data()
-
-    acthandler.execute_action(data, proc_args)
+    data = metafile.parse()
+    actions.execute_action(args.action[0], data, args)
 
     return 0
 

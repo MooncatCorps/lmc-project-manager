@@ -1,6 +1,7 @@
-[project]
-name = "pm"
+[project][[
+name = "mcpm"
 version = "0.0.1"
+type = "script+library"
 
 [development]
 lang = "python"
