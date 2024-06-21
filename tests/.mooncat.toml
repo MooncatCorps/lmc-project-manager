@@ -1,0 +1,8 @@
+[project]
+name = "mcpmtests"
+version = "0.0.1"
+type = "script+library"
+
+[development]
+lang = "python"
+
