@@ -38,7 +38,7 @@ def install_library_files(name: str, lang: str, logger: logging.Logger, dev: boo
     if not path_from.exists():
         logger.error("Missing library install source")
         errors.file_not_found(path_base, logger)
-        logger.info(f"Your library file directory should be named {path_from.name}")
+        logger.info(f"Your library file directory should be named '{path_from.name}'")
         return False
 
     if not paths.can_read(path_from):
@@ -51,12 +51,12 @@ def install_library_files(name: str, lang: str, logger: logging.Logger, dev: boo
     logger.debug(f"Mooncat Destination Path: {path_moon}")
     logger.debug(f"Library Destination Path: {path_lib}")
 
+    logger.debug(f"Attempting to create path: {path_moon}")
+    os.makedirs(path_moon, exist_ok = True)
+
     if not paths.has_access(path_moon):
         errors.insufficient_file_permissions(path_moon, ["read", "write", "execute"], logger)
         return False
-
-    logger.debug(f"Attempting to create path: {path_moon}")
-    os.makedirs(path_moon, exist_ok = True)
 
     if path_lib.exists():
         logger.debug(f"Cleaning up: {path_base}")
@@ -100,15 +100,17 @@ def uninstall_library_files(name: str, lang: str, logger: logging.Logger) -> boo
     logger.debug(f"Mooncat Destination Path: {path_moon}")
     logger.debug(f"Library Destination Path: {path_lib}")
 
+    if not path_moon.exists():
+        errors.file_not_found(path_moon, logger)
+        logger.info("This usually means that there is nothing to uninstall (at all)")
+        return False
+
     if not paths.has_access(path_moon):
         errors.insufficient_file_permissions(path_moon, ["read", "write", "execute"], logger)
         return False
 
-    logger.debug(f"Attempting to create path: {path_moon}")
-    os.makedirs(path_moon, exist_ok = True)
-
     if path_lib.exists():
-        logger.debug(f"Cleaning up: {path_base}")
+        logger.debug(f"Removing: {path_lib}")
         paths.remove(path_lib)
     else:
         errors.file_not_found(path_lib, logger)

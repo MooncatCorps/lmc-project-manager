@@ -53,10 +53,11 @@ def _get_property_or_quit(key: str, data: dict) -> Any:
     return val
 
 
-def install(isdev: bool = False):
-    logger.debug("Fetching metadata...")
-    data = _get_metadata_or_quit()
+logger.debug("Fetching metadata...")
+data = _get_metadata_or_quit()
 
+
+def install(isdev: bool = False):
     p_name: str = _get_property_or_quit("project.name", data)
     p_type: str = _get_property_or_quit("project.type", data)
     p_lang: str = _get_property_or_quit("development.lang", data)
@@ -70,5 +71,21 @@ def install(isdev: bool = False):
 
         if typebit == "library":
             installers.install_library_files(p_name, p_lang, logger, dev = isdev)
+
+
+def uninstall():
+    p_name: str = _get_property_or_quit("project.name", data)
+    p_type: str = _get_property_or_quit("project.type", data)
+    p_lang: str = _get_property_or_quit("development.lang", data)
+
+    logger.debug(f"Name: {p_name}")
+    logger.debug(f"Type: {p_type}")
+    logger.debug(f"Lang: {p_lang}")
+
+    for typebit in p_type.split("+"):
+        typebit = typebit.strip()
+
+        if typebit == "library":
+            installers.uninstall_library_files(p_name, p_lang, logger)
 
 

@@ -20,8 +20,8 @@ def file_permissions(keys: list[str], logger: logging.Logger):
 
 def file_not_found(path: Path, logger: logging.Logger):
     logger.error("File not found")
-    logger.error(f"Could not locate {path}")
-    logger.info("Check for filesystem permissionsor missing files")
+    logger.error(f"Could not locate: {path}")
+    logger.info("Check for filesystem permissions or missing files")
 
 def insufficient_file_permissions(path: Path, keys: list[str], logger: logging.Logger):
     logger.error("Insufficient File Permissions")
