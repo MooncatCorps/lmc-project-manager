@@ -22,6 +22,9 @@ def can_write(path: Path):
 def can_delete(path: Path):
     return path.exists() and os.access(path, os.W_OK | os.X_OK)
 
+def has_access(path: Path):
+    return path.exists() and os.access(path, os.W_OK | os.X_OK | os.R_OK)
+
 
 def get_file_entity_name(path: Path):
     if path.is_dir():
@@ -110,7 +113,7 @@ def internal_library_files(lang: str) -> Optional[Path]:
         case "python":
             return cwd()/"modules"
         case "c" | "c++":
-            return cwd()/"headers"
+            return cwd()/"include"
 
     return None
 

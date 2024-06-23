@@ -23,14 +23,14 @@ def install_library_files(name: str, lang: str, logger: logging.Logger, dev: boo
 
         return False
 
-    if not paths.can_delete(path_base):
+    if not paths.has_access(path_base):
         errors.tripartite_error(
             "Failed to install library files",
             f"Cannot operate on destination: {path_base}",
             "Do you have the right file permissions?",
             logger)
 
-        errors.file_permissions(["write", "execute"], logger)
+        errors.file_permissions(["read", "write", "execute"], logger)
         return False
 
     if path_from == None:
@@ -58,6 +58,16 @@ def install_library_files(name: str, lang: str, logger: logging.Logger, dev: boo
 
     logger.debug(f"Mooncat Destination Path: {path_moon}")
     logger.debug(f"Library Destination Path: {path_lib}")
+
+    if not paths.has_access(path_moon):
+        errors.tripartite_error(
+            "Failed to install library files",
+            f"Cannot operate on destination: {path_moon}",
+            "Do you have the right file permissions?",
+            logger)
+
+        errors.file_permissions(["read", "write", "execute"], logger)
+        return False
 
     logger.debug(f"Attempting to create path: {path_moon}")
     os.makedirs(path_moon, exist_ok = True)
