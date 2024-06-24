@@ -4,7 +4,7 @@ A project manager library for Mooncat projects.
 ## Usage
 This is meant to be used as python library which means that there is no
 executable for it. In order to manage projects one must spawn an interactive
-python session or write a custom script for it. \
+python session or write a custom script for it.
 
 All of the main actions that are meant to be executed exist within
 `mooncat.mcpm.actions`. For example, to install the project located in the
@@ -17,8 +17,9 @@ actions.install()
 
 ## Supported actions
 - Install \
-Installs the project. Automatically determines locations based on project type
+Installs the project. Automatically determines locations based on project type.
+
 - Uninstall \
-Uninstalls the project. Automatically determines locations based on project type
+Uninstalls the project. Automatically determines locations based on project type.
 
 
