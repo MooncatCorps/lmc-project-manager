@@ -1,5 +1,5 @@
-[project][[
-name = "mcpm"
+[project]
+name = "mcpmtests"
 version = "0.0.1"
 type = "script+library"
 
