@@ -2,6 +2,9 @@ import os, platform, sysconfig, shutil
 from pathlib import Path
 from typing import Optional
 
+LAB_NAMESPACE = 'witherlabs'
+METAFILE_NAME = '.wither'
+
 #
 # OS
 #
@@ -28,28 +31,28 @@ def has_access(path: Path):
 
 def get_file_entity_name(path: Path):
     if path.is_dir():
-        return "directory"
+        return 'directory'
 
     if path.is_file():
-        return "file"
+        return 'file'
 
     if path.is_mount():
-        return "mountpoint"
+        return 'mountpoint'
 
     if path.is_symlink():
-        return "symlink"
+        return 'symlink'
 
     if path.is_block_device():
-        return "block device"
+        return 'block device'
 
     if path.is_char_device():
-        return "char device"
+        return 'char device'
 
     if path.is_fifo():
-        return "fifo"
+        return 'fifo'
 
     if path.is_socket():
-        return "socket"
+        return 'socket'
 
 
 def remove(path: Path):
@@ -74,7 +77,7 @@ def copy(path_from: Path, path_dest: Path, symlink: bool = False):
 
 
 def metafile() -> Path:
-    return cwd()/".mooncat.toml"
+    return cwd()/METAFILE_NAME
 
 
 #
@@ -84,10 +87,10 @@ def metafile() -> Path:
 
 def _external_library_files_unix(lang: str) -> Optional[Path]:
     match lang:
-        case "python" | "py":
-            return Path(sysconfig.get_paths()["purelib"])
-        case "c" | "c++":
-            return Path("/usr/include")
+        case 'python':
+            return Path(sysconfig.get_paths()['purelib'])
+        case 'c' | 'c++':
+            return Path('/usr/include')
 
     return None
 
@@ -98,7 +101,7 @@ def _external_library_files_windows(lang: str) -> Optional[Path]:
 
 
 def external_library_files(lang: str) -> Optional[Path]:
-    if platform.system == "Windows":
+    if platform.system == 'Windows':
         return _external_library_files_windows(lang)
 
     return _external_library_files_unix(lang)
@@ -110,10 +113,10 @@ def external_library_files(lang: str) -> Optional[Path]:
 
 def internal_library_files(lang: str) -> Optional[Path]:
     match lang:
-        case "python":
-            return cwd()/"modules"
-        case "c" | "c++":
-            return cwd()/"include"
+        case 'python':
+            return cwd()/'modules'
+        case 'c' | 'c++':
+            return cwd()/'include'
 
     return None
 
@@ -123,7 +126,7 @@ def internal_library_files(lang: str) -> Optional[Path]:
 #
 
 
-def append_mooncat(path: Path) -> Path:
-    return path/"mooncat"
+def append_namespace(path: Path) -> Path:
+    return path/LAB_NAMESPACE
 
 
