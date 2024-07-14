@@ -36,7 +36,7 @@ def system_library_directory_for(language_name: str) -> Path:
 #   such as intermediate directories
 def append_namespace_to_system_library_directory(language_name: str, system_path: Path) -> Path:
     """Appends the 'witherlabs' signature to the installation destination"""
-    return system_path/paths.LAB_NAMESPACE
+    return system_path/metafile.LAB_NAMESPACE
 
 
 class Language:
