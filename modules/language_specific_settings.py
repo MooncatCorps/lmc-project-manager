@@ -4,7 +4,7 @@ from pathlib import Path
 import sysconfig, platform
 
 
-CONTEMPLATED_LANGUAGES = ['python', 'c', 'c++']
+SUPPORTED_LANGUAGES = ['python', 'c', 'c++']
 
 
 def _unix_system_library_directory_for(language_name: str) -> Path:
@@ -41,7 +41,7 @@ def append_namespace_to_system_library_directory(language_name: str, system_path
 class Language:
 
     def __init__(self, name: str, data: dict):
-        self.is_valid = name in CONTEMPLATED_LANGUAGES
+        self.is_valid = name in SUPPORTED_LANGUAGES
         self.name = name
 
         if not self.is_valid:
@@ -49,7 +49,7 @@ class Language:
 
         self.system_library_directory = system_library_directory_for(name)
         self.wither_system_library_directory = append_namespace_to_system_library_directory(name, self.system_library_directory)
-
+        
 
 def get_language(data: dict) -> Optional[Language]:
     lang = metadata.get('development.lang', data)
