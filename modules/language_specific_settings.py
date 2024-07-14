@@ -41,21 +41,30 @@ def append_namespace_to_system_library_directory(language_name: str, system_path
 
 class Language:
 
-    def __init__(self, name: str, data: dict):
-        self.is_valid = name in SUPPORTED_LANGUAGES
+    def __init__(self, name: str):
         self.name = name
-
-        if not self.is_valid:
-            return
-
         self.system_library_directory = system_library_directory_for(name)
         self.wither_system_library_directory = append_namespace_to_system_library_directory(name, self.system_library_directory)
-        
 
-def get_language(data: dict) -> Optional[Language]:
-    lang = metadata.get('development.lang', data)
-    if lang is None: return None
 
-    return Language(lang, data)
+def err_invalid_language(lang_name: str):
+    return errors.WLPMError(errors.WLPMErrorType.LANGUAGE, f'Language not supported: {lang_name}')
+
+
+def get_language(data: dict) -> errors.PossibleError[Language]:
+    lang = metadata.get(settings.LANGUAGE, data)
+    val = errors.PossibleError(lang)
+
+    if lang is None:
+        val.add_error(settings.err_setting_not_pressent(settings.LANGUAGE))
+        return val
+
+    if lang not in SUPPORTED_LANGUAGES:
+        val.add_error(err_invalid_language(lang))
+        return val
+
+    val.set_value(Language(lang))
+
+    return val
 
 

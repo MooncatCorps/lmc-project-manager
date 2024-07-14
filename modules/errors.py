@@ -15,14 +15,28 @@ class WLPMError:
         self.etype = etype
         self.reason = reason
 
+__T = TypeVar('__T')
+class PossibleError(Generic[__T]):
 
-class PossibleError[T]:
-
-    def __init__(self, value: Optional[T]):
+    def __init__(self, value: Optional[__T]):
         self.value = value
         self.error_count: int = 0
         self.errors: list[WLPMError] = []
 
 
+    def add_error(self, err: WLPMError):
+        self.errors.append(err)
+
+
+    def set_value(self, value: __T):
+        self.value = value
+
+
+    def has_errors(self) -> bool:
+        return self.error_count > 0
+
+
 def non_existent_path(path: Path):
     return WLPMError(WLPMErrorType.FILE, f'Path does not exist: {path}')
+
+
