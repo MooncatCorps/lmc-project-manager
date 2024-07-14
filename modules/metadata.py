@@ -1,14 +1,5 @@
 from typing import Any, Optional
 
-def contains(key: str, data: dict) -> bool:
-    mut_data = data
-
-    for k in key.split('.'):
-        if not k in mut_data:
-            return False
-
-    return True
-
 def get(key: str, data: dict) -> Optional[Any]:
     mut_data = data
 
@@ -20,4 +11,5 @@ def get(key: str, data: dict) -> Optional[Any]:
     
     return mut_data
 
-
+def contains(key: str, data: dict) -> bool:
+    return get(key, data) is None
