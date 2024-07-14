@@ -1,6 +1,7 @@
-from typing import Optional
 from witherlabs.projman import paths, metadata
+from typing import Optional
 from pathlib import Path
+
 import sysconfig, platform
 
 
