@@ -2,8 +2,10 @@ import os, platform, sysconfig, shutil
 from pathlib import Path
 from typing import Optional
 
+
 LAB_NAMESPACE = 'witherlabs'
 METAFILE_NAME = '.wither'
+
 
 #
 # OS
@@ -24,6 +26,7 @@ def can_write(path: Path):
 
 def can_delete(path: Path):
     return path.exists() and os.access(path, os.W_OK | os.X_OK)
+
 
 def has_access(path: Path):
     return path.exists() and os.access(path, os.W_OK | os.X_OK | os.R_OK)
@@ -71,6 +74,7 @@ def copy(path_from: Path, path_dest: Path, symlink: bool = False):
         else:
             shutil.copy(path_from, path_dest)
 
+
 #
 # Standard Files
 #
@@ -84,32 +88,6 @@ def metafile() -> Path:
 # Language Specific: External Paths
 #
 
-
-def _external_library_files_unix(lang: str) -> Optional[Path]:
-    match lang:
-        case 'python':
-            return Path(sysconfig.get_paths()['purelib'])
-        case 'c' | 'c++':
-            return Path('/usr/include')
-
-    return None
-
-
-def _external_library_files_windows(lang: str) -> Optional[Path]:
-    # Later...
-    return None
-
-
-def external_library_files(lang: str) -> Optional[Path]:
-    if platform.system == 'Windows':
-        return _external_library_files_windows(lang)
-
-    return _external_library_files_unix(lang)
-
-
-#
-# Language Specific: External Paths
-#
 
 def internal_library_files(lang: str) -> Optional[Path]:
     match lang:

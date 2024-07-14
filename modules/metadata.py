@@ -1,5 +1,6 @@
 from typing import Any, Optional
 
+
 def get(key: str, data: dict) -> Optional[Any]:
     mut_data = data
 
@@ -10,6 +11,7 @@ def get(key: str, data: dict) -> Optional[Any]:
         mut_data = mut_data[k]
     
     return mut_data
+
 
 def contains(key: str, data: dict) -> bool:
     return get(key, data) is None

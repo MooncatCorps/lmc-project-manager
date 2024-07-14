@@ -18,7 +18,6 @@ def install_library_files(name: str, lang: str, logger: logging.Logger, dev: boo
                                 logger)
         return False
 
-
     if not path_base.exists():
         logger.error('Missing library install location')
         errors.file_not_found(path_base, logger)
@@ -82,13 +81,11 @@ def uninstall_library_files(name: str, lang: str, logger: logging.Logger) -> boo
                                 logger)
         return False
 
-
     if not path_base.exists():
         logger.error('Missing library uninstall target')
         logger.info('This usually means that there is nothing to uninstall')
         errors.file_not_found(path_base, logger)
         return False
-
 
     if not paths.has_access(path_base):
         errors.insufficient_file_permissions(path_base, ['read', 'write', 'execute'], logger)
@@ -119,3 +116,4 @@ def uninstall_library_files(name: str, lang: str, logger: logging.Logger) -> boo
 
     logger.debug(f'Done')
     return True
+

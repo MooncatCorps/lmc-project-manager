@@ -58,13 +58,11 @@ def interactive_create(logger: logging.Logger) -> bool:
         logger.error(f'{paths.METAFILE_NAME} exists, but is not a regular file.')
         logger.info(f'{paths.METAFILE_NAME} is a {paths.get_file_entity_name(paths.metafile())}')
         return False
-        
 
     return True
 
 
 def interactive_parse(logger: logging.Logger) -> Optional[dict]:
-
     val = None
 
     if not interactive_create(logger):
@@ -99,15 +97,5 @@ def interactive_parse(logger: logging.Logger) -> Optional[dict]:
         lnstr = content.split('\n')[line - 1]
         logger.info(f'{paths.METAFILE_NAME}:\n{line}:\t{lnstr}\n{' ' * len(str_line)} \t{' ' * (column - 2)}^^^\n')
 
-
     return val
-
-
-
-
-
-
-
-
-
 

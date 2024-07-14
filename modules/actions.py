@@ -21,6 +21,7 @@ class LogFormatter(logging.Formatter):
         logging.CRITICAL: bold_red + fmt + reset
     }
 
+
     def format(self, record):
         log_fmt = self.FORMATS.get(record.levelno)
         formatter = logging.Formatter(log_fmt)
@@ -87,5 +88,4 @@ def uninstall():
 
         if typebit == 'library':
             installers.uninstall_library_files(p_name, p_lang, logger)
-
 
