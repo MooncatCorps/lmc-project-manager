@@ -1,4 +1,5 @@
-from typing import Optional
+from witherlabs.projman import metafile
+from typing import Generic, Optional, TypeVar
 from pathlib import Path
 from enum import Enum
 
@@ -6,6 +7,8 @@ from enum import Enum
 class WLPMErrorType(Enum):
     GENERIC = 1,
     FILE = 2,
+    SETTINGS= 3,
+    LANGUAGE = 4,
 
 
 

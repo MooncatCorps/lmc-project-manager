@@ -1,4 +1,4 @@
-from witherlabs.projman import paths
+from witherlabs.projman import paths, permissions
 from pathlib import Path
 import tomllib
 
@@ -13,13 +13,11 @@ def path() -> Path:
 
 
 def exists() -> bool:
-    path = paths.metafile()
-    return path.exists()
+    return path().exists()
 
 
 def is_file() -> bool:
-    path = paths.metafile()
-    return path.is_file()
+    return path().is_file()
 
 
 def is_valid() -> bool:
@@ -30,19 +28,15 @@ def is_invalid() -> bool:
     return not is_valid()
 
 
-def is_readable() -> bool:
-    return paths.can_read(paths.metafile())
-
-
 def create() -> bool:
     if is_valid():
         return True
 
-    with open(paths.metafile(), 'x'):
+    with open(path(), 'x'):
         return True
 
 
 def parse() -> dict:
-    with open(paths.metafile(), 'rb') as metafile:
+    with open(path(), 'rb') as metafile:
         return tomllib.load(metafile)
 

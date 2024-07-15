@@ -1,4 +1,4 @@
-from witherlabs.projman import paths, metadata
+from witherlabs.projman import paths, metadata, metafile, errors, settings
 from typing import Optional
 from pathlib import Path
 
