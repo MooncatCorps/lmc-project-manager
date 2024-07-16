@@ -1,6 +1,8 @@
-from witherlabs.projman import errors, metafile
+from witherlabs.projman.error_handling import Maybe
 
-LANGUAGE = 'development.lang'
 
-def err_setting_not_pressent(setting: str):
-    return errors.WLPMError(errors.WLPMErrorType.SETTINGS, f'Option not present in {metafile.path()}: {setting}')
+ORGANIZATION_NAME = 'witerlabs'
+
+
+def err_required_option_not_present(parent_setting: str, setting: str) -> Maybe:
+    return Maybe(None, f'Option not present in {parent_setting}: {setting}')
